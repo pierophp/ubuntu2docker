@@ -1,15 +1,14 @@
 # Docker no Windows / MAC
 
 ## Introdução
+
+Por algumas limitações dentro do boot2docker, foi criado o ubuntu2docker.
+
 Para rodar o docker no Windows / MAC com performance, o segredo é deixar os arquivos dentro do Virtual Box.
 
-Para acessar seus arquivos, é utilizado um compartilhamento samba.
+Para acessar seus arquivos, é utilizado um compartilhamento NFS.
 
 Como existe a possibilidade da sua VM corromper, é feito um backup da sua /home/docker a cada 10 minutos na sua pasta pessoal no Windows / MAC na pasta "docker_bkp".
-
-Nesse script também é instalado o docker-compose que não vem instalado por padrão no boot2docker para Windows / MAC.
-
-Além disso, por padrão o /home/docker é perdido a cada reboot, esse script também corrigi isso.
 
 ## Instalação
 
@@ -20,24 +19,30 @@ Instale:
 ## Máquina Virtual
 Instale o Ubuntu Server, com um usuário "docker"
 
-## Alteração da porta SSH
-O Docker Toolbox, deixa o redirecionamento da porta SSH do NAT numa porta alta, altere para 2222
+### Rede
+
+Criar 2 interfaces de rede:
+
+- NAT
+
+Crie um redirecionamento de porta da porta 2222 para 22.
+
+- Placa de rede exclusiva de hospedeiro (host-only)
 
 ## Alteração do IP
 Acesse as configurações gerais do Virtual Box, vá em Rede, Redes Exclusivas de Hospedeiro, edite, Servidor DHCP, desmarque a opção Habilitar Servidor.
 
-## Alias para acessar boot2docker
+## Alias para acessar a VM
 
 Abra o Git Bash e adicione isso ao arquivo ~/.bash_profile no WINDOWS ou ~/.profile no MAC
-
 ```
 alias dssh='ssh -i ~/.docker/machine/machines/default/id_rsa -p 2222 docker@127.0.0.1'
 ```
 
-## Configurando seu boot2docker
+## Configurando seu ubuntu2docker
 Execute esse comando dentro do boot2docker (irá pedir seu usuário do Windows / MAC):
 ```
-sudo wget https://raw.githubusercontent.com/pierophp/boot2docker/master/install.sh -O /install.sh
+sudo wget https://raw.githubusercontent.com/pierophp/ubuntu2docker/master/install.sh -O /install.sh
 sudo chmod +x /install.sh
 sudo /install.sh
 ```
