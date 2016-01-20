@@ -50,3 +50,6 @@ echo "ifconfig eth1 192.168.99.100" > /etc/rc.local
 
 echo "Baixando o container rsync"
 docker pull bfosberry/rsync
+
+echo "Reiniciando"
+reboot

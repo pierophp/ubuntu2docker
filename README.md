@@ -68,22 +68,35 @@ Abra o arquivo como administrador no MAC:
 
 Adicione seus hosts:
 ```
-192.168.99.2 docker.dev
+192.168.99.100 docker.dev
 ```
 ## Acessando seus arquivos
 
-No Windows abra um CMD e monte o caminho remoto:
+### MAC OS
+
+Execute esse comando:
 ```
-net use Z: \\docker.dev\docker
-```
-No MAC, execute esse comando:
-```
-mount | grep smbfs && diskutil unmount /Volumes/docker
+mount | grep nfs && diskutil unmount /Volumes/docker
 test -d /Volumes/docker || mkdir /Volumes/docker
-mount_smbfs //guest:@docker.dev/docker /Volumes/docker
+mount -t nfs -o proto=tcp,port=2049 docker.dev:/export/docker /Volumes/docker
 ```
 
 Depois acesse em:
 ```
 /Volumes/docker/
 ```
+
+### Windows
+
+Instale:
+- <a href="https://github.com/dokan-dev/dokany/releases/download/v0.7.4/DokanInstall_0.7.4.exe" target="_blank">Dokany</a>
+- <a href="http://www.microsoft.com/download/en/details.aspx?id=17851" target="_blank">Microsoft .NET Framework 4</a>
+- <a href="http://nekodrive.googlecode.com/files/NekoDrive_0_9_0.7z" target="_blank">Neko Drive</a>
+
+Abra o Neko Drive, conece no IP 192.168.99.100.
+
+Marque a opção "Auto" e a "No Cache".
+
+Set o groupId como 20
+
+Mapeie na unidade Z:
