@@ -11,7 +11,6 @@ apt-get update
 # upgrade SO
 apt-get upgrade
 
-
 # install utils
 echo "Instalando Ferramentas"
 apt-get install -y openssh-server git nano
@@ -47,6 +46,8 @@ echo "allow-hotplug eth1" >> /etc/network/interfaces
 echo "iface eth1 inet dhcp" >> /etc/network/interfaces
 
 echo "ifconfig eth1 192.168.99.100" > /etc/rc.local
+
+sed -i -e 's/StrictModes yes/StrictModes no/g' /etc/ssh/sshd_config
 
 echo "Baixando o container rsync"
 docker pull bfosberry/rsync

@@ -2,7 +2,13 @@
 
 ## Introdução
 
-Por algumas limitações dentro do boot2docker, foi criado o ubuntu2docker.
+O boot2docker tem algumas limitações, como:
+- O Kernel não vem com suporte a NFS
+- Terminal colorido
+- Não vem com nano
+- É complicado instalar programas
+
+Por isso, foi criado o ubuntu2docker.
 
 Para rodar o docker no Windows / MAC com performance, o segredo é deixar os arquivos dentro do Virtual Box.
 
@@ -17,29 +23,23 @@ Instale:
 - <a href="https://git-scm.com/" target="_blank">Git</a>
 
 ## Máquina Virtual
-Instale o Ubuntu Server, com um usuário "docker"
 
-### Rede
+Instale o <a href="http://www.ubuntu.com/server" target="_blank">Ubuntu Server</a>, com um usuário "docker"
 
-Criar 2 interfaces de rede:
+## Configurando a Rede
 
-- NAT
+Crie 2 interfaces de rede:
 
-Crie um redirecionamento de porta da porta 2222 para 22.
+### NAT
 
-- Placa de rede exclusiva de hospedeiro (host-only)
+Crie um redirecionamento de porta da porta 2222 para a 22.
 
-## Alteração do IP
-Acesse as configurações gerais do Virtual Box, vá em Rede, Redes Exclusivas de Hospedeiro, edite, Servidor DHCP, desmarque a opção Habilitar Servidor.
+### Placa de rede exclusiva de hospedeiro (host-only)
 
-## Alias para acessar a VM
-
-Abra o Git Bash e adicione isso ao arquivo ~/.bash_profile no WINDOWS ou ~/.profile no MAC
-```
-alias dssh='ssh -i ~/.docker/machine/machines/default/id_rsa -p 2222 docker@127.0.0.1'
-```
+Nas Preferências do Virtual Box, na na aba Rede, Redes Exclusivas de Hospedeiro, edite, Servidor DHCP, desmarque a opção Habilitar Servidor.
 
 ## Configurando seu ubuntu2docker
+
 Execute esse comando dentro do boot2docker (irá pedir seu usuário do Windows / MAC):
 ```
 sudo wget https://raw.githubusercontent.com/pierophp/ubuntu2docker/master/install.sh -O /install.sh
@@ -54,14 +54,31 @@ ssh-keygen -t rsa -b 4096 -C "user@email.com"
 cat ~/.ssh/id_rsa.pub
 ```
 
+No MAC instale o ssh-copy-id (No Windows já vem com o Git Bash)
+```
+brew install ssh-copy-id
+```
+Copie a chave para a VM:
+```
+ssh-copy-id -p 222 docker@127.0.0.1
+```
+## Alias para acessar a VM
+
+Abra o Git Bash e adicione isso ao arquivo ~/.bash_profile no WINDOWS ou ~/.profile no MAC
+```
+alias dssh='ssh -p 2222 docker@127.0.0.1'
+```
+
 ## Adicionar hostname
 
 Abra o arquivo como administrador no WINDOWS:
+
 ```
 C:\Windows\System32\Drivers\etc\hosts
 ```
 
 Abra o arquivo como administrador no MAC:
+
 ```
 /etc/hosts
 ```
@@ -93,10 +110,10 @@ Instale:
 - <a href="http://www.microsoft.com/download/en/details.aspx?id=17851" target="_blank">Microsoft .NET Framework 4</a>
 - <a href="http://nekodrive.googlecode.com/files/NekoDrive_0_9_0.7z" target="_blank">Neko Drive</a>
 
-Abra o Neko Drive, conece no IP 192.168.99.100.
+Abra o Neko Drive, conecte no IP 192.168.99.100.
 
 Marque a opção "Auto" e a "No Cache".
 
-Set o groupId como 20
+Coloque o groupId como 20
 
 Mapeie na unidade Z:
