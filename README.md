@@ -58,9 +58,9 @@ No MAC instale o ssh-copy-id (No Windows já vem com o Git Bash)
 ```
 brew install ssh-copy-id
 ```
-Copie a chave para a VM:
+No seu Git Bash, Copie a chave para a VM:
 ```
-ssh-copy-id -p 222 docker@127.0.0.1
+ssh-copy-id -p 2222 docker@127.0.0.1
 ```
 ## Alias para acessar a VM
 
